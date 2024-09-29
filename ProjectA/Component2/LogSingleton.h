@@ -27,7 +27,6 @@ public:
     }
 
 private:
-    static std::mutex m_mutex;
     static LogSingleton m_instance;
 
     std::shared_ptr<spdlog::sinks::stdout_color_sink_mt> m_stdout_sink;
