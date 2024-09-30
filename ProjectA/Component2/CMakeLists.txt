@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.29)
-project(Component2)
+project(ProjectA_Component2)
 
 include(GNUInstallDirs)
 
@@ -17,37 +17,35 @@ set(SOURCES
 )
 
 # Library
-add_library(Component2 ${SOURCES})
-add_library(ProjectA::Component2 ALIAS Component2)
-target_sources(Component2 PUBLIC FILE_SET HEADERS FILES ${HEADERS})
+add_library(${PROJECT_NAME} ${SOURCES})
+target_sources(${PROJECT_NAME} PUBLIC FILE_SET HEADERS FILES ${HEADERS})
 
-target_include_directories(Component2 PUBLIC
+target_include_directories(${PROJECT_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
 # Dependencies
-target_link_libraries(Component2 PUBLIC spdlog::spdlog)
+target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
 
-install(TARGETS Component2
-        EXPORT Component2Targets
+install(TARGETS ${PROJECT_NAME}
+        EXPORT ${PROJECT_NAME}Targets
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
         FILE_SET HEADERS DESTINATION include/ProjectA/Component2
 )
 
-install(EXPORT Component2Targets
-        FILE Component2Targets.cmake
-        NAMESPACE ProjectA::
-        DESTINATION share/Component2
+install(EXPORT ${PROJECT_NAME}Targets
+        FILE ${PROJECT_NAME}Targets.cmake
+        DESTINATION share/${PROJECT_NAME}
 )
 
-file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/Component2Config.cmake"
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
         "include(CMakeFindDependencyMacro)\n"
         "find_dependency(spdlog CONFIG REQUIRED)\n"
-        "include(\"\${CMAKE_CURRENT_LIST_DIR}/Component2Targets.cmake\")\n"
+        "include(\"\${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}Targets.cmake\")\n"
 )
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/Component2Config.cmake"
-        DESTINATION share/Component2)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+        DESTINATION share/${PROJECT_NAME})

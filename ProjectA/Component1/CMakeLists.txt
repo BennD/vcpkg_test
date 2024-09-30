@@ -7,4 +7,4 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(Component1 main.cpp)
 # TODO private
-target_link_libraries(Component1 PUBLIC ProjectA::Component2)
+target_link_libraries(Component1 PUBLIC ProjectA_Component2)
