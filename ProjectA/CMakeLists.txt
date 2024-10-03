@@ -5,3 +5,4 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(Component2)
 add_subdirectory(Component1)
+add_subdirectory(Component3)
