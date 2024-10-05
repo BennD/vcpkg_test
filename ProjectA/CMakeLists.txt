@@ -1,20 +1,36 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.28)
+
 project(ProjectA)
 
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+
+set(version 1.1.0)
 set(CMAKE_CXX_STANDARD 20)
 
+add_subdirectory(Component3)
 add_subdirectory(Component2)
 add_subdirectory(Component1)
-add_subdirectory(Component3)
 
-# TODO adjust this to only search for requested components
-file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-        "include(CMakeFindDependencyMacro)\n"
-        "find_dependency(ProjectA_Component2 CONFIG REQUIRED)\n"
-        "find_dependency(ProjectA_Component3 CONFIG REQUIRED)\n"
+#########################################################################################
+## CMake install configuration
+#########################################################################################
+
+# generate the version file for the config file
+write_basic_package_version_file(
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+        VERSION "${version}"
+        COMPATIBILITY AnyNewerVersion
 )
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-        DESTINATION share/${PROJECT_NAME}
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+)
+
+install(FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
         COMPONENT ${PROJECT_NAME}
 )

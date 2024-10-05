@@ -1,8 +1,11 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.28)
+
 project(ProjectA_Component2)
 
 include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
 
+set(version 1.1.1)
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(spdlog REQUIRED CONFIG)
@@ -28,6 +31,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 # Dependencies
 target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
 
+#########################################################################################
+## CMake install configuration
+#########################################################################################
+
 install(TARGETS ${PROJECT_NAME}
         EXPORT ${PROJECT_NAME}Targets
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
@@ -39,17 +46,30 @@ install(TARGETS ${PROJECT_NAME}
 
 install(EXPORT ${PROJECT_NAME}Targets
         FILE ${PROJECT_NAME}Targets.cmake
-        DESTINATION share/${PROJECT_NAME}
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
         COMPONENT ${PROJECT_NAME}
 )
 
-file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-        "include(CMakeFindDependencyMacro)\n"
-        "find_dependency(spdlog CONFIG REQUIRED)\n"
-        "include(\"\${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}Targets.cmake\")\n"
+set_property(TARGET ${PROJECT_NAME} PROPERTY VERSION ${version})
+set_property(TARGET ${PROJECT_NAME} PROPERTY SOVERSION 3)
+set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_${PROJECT_NAME}_MAJOR_VERSION 3)
+set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME}_MAJOR_VERSION)
+
+# generate the version file for the config file
+write_basic_package_version_file(
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+        VERSION "${version}"
+        COMPATIBILITY AnyNewerVersion
 )
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-        DESTINATION share/${PROJECT_NAME}
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+)
+
+install(FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
         COMPONENT ${PROJECT_NAME}
 )

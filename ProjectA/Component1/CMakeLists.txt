@@ -1,10 +1,11 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.28)
 project(Component1)
 
 set(CMAKE_CXX_STANDARD 20)
 
-#find_package(ProjectA::Component2 REQUIRED CONFIG)
-
 add_executable(Component1 main.cpp)
-# TODO private
-target_link_libraries(Component1 PUBLIC ProjectA_Component2)
+target_link_libraries(Component1 PRIVATE ProjectA_Component2)
+
+#########################################################################################
+## CMake install configuration
+#########################################################################################

@@ -1,0 +1,4 @@
+@PACKAGE_INIT@
+
+find_package(ProjectA_Component2)
+find_package(ProjectA_Component3)
