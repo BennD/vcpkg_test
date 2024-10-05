@@ -48,7 +48,7 @@ install(TARGETS ${PROJECT_NAME}
 
 install(EXPORT ${export_name}Targets
         FILE ${export_name}Targets.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/share/${export_name}
+        DESTINATION share/${export_name}
         NAMESPACE ProjectA::
         COMPONENT ${export_name}
 )
@@ -68,6 +68,6 @@ configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
 install(FILES
         "${CMAKE_CURRENT_BINARY_DIR}/${export_name}Config.cmake"
         "${CMAKE_CURRENT_BINARY_DIR}/${export_name}ConfigVersion.cmake"
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/share/${export_name}
+        DESTINATION share/${export_name}
         COMPONENT ${export_name}
 )
