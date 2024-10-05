@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.28)
 
-project(ProjectA)
+project(project-a)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)

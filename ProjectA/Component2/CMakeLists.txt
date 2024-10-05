@@ -5,7 +5,7 @@ project(Component2)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-set(export_name ProjectA_${PROJECT_NAME})
+string(TOLOWER "Project-A-${PROJECT_NAME}" export_name)
 set(version 1.1.1)
 set(CMAKE_CXX_STANDARD 20)
 
