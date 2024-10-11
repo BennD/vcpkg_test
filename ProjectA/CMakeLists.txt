@@ -7,6 +7,7 @@ include(CMakePackageConfigHelpers)
 set(export_name "${PROJECT_NAME}")
 set(version 1.1.0)
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_DEBUG_POSTFIX "d")
 
 add_subdirectory(Component3)
 add_subdirectory(Component2)
