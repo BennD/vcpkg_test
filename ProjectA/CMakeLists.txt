@@ -4,7 +4,7 @@ project(ProjectA)
 
 include(CMakePackageConfigHelpers)
 
-string(TOLOWER "${PROJECT_NAME}" export_name)
+set(export_name "${PROJECT_NAME}")
 set(version 1.1.0)
 set(CMAKE_CXX_STANDARD 20)
 

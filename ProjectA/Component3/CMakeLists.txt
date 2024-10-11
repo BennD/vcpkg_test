@@ -4,7 +4,7 @@ project(Component3)
 
 include(CMakePackageConfigHelpers)
 
-string(TOLOWER "ProjectA-${PROJECT_NAME}" export_name)
+set(export_name "ProjectA_${PROJECT_NAME}")
 set(version 1.2.0)
 set(CMAKE_CXX_STANDARD 20)
 
