@@ -2,10 +2,9 @@ cmake_minimum_required(VERSION 3.28)
 
 project(Component3)
 
-include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-string(TOLOWER "Project-A-${PROJECT_NAME}" export_name)
+string(TOLOWER "ProjectA-${PROJECT_NAME}" export_name)
 set(version 1.2.0)
 set(CMAKE_CXX_STANDARD 20)
 
@@ -24,7 +23,7 @@ target_sources(${PROJECT_NAME} PUBLIC FILE_SET HEADERS FILES ${HEADERS})
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+        $<INSTALL_INTERFACE:include>
 )
 
 #########################################################################################
@@ -33,10 +32,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT ${export_name}Targets
-        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-        FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/ProjectA/Component3
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+        RUNTIME DESTINATION bin
+        FILE_SET HEADERS DESTINATION include/ProjectA/Component3
         COMPONENT ${export_name}
 )
 
@@ -56,7 +55,7 @@ write_basic_package_version_file(
 
 configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
         "${CMAKE_CURRENT_BINARY_DIR}/${export_name}Config.cmake"
-        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${export_name}
+        INSTALL_DESTINATION share/cmake/${export_name}
 )
 
 install(FILES
