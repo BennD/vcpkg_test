@@ -32,9 +32,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT ${export_name}Targets
-        ARCHIVE DESTINATION lib
-        LIBRARY DESTINATION lib
-        RUNTIME DESTINATION bin
+        ARCHIVE DESTINATION lib/$<CONFIG>
+        LIBRARY DESTINATION lib/$<CONFIG>
+        RUNTIME DESTINATION bin/$<CONFIG>
         FILE_SET HEADERS DESTINATION include/ProjectA/Component3
         COMPONENT ${export_name}
 )
