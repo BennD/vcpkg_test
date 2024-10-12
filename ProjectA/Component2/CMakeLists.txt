@@ -4,8 +4,8 @@ project(Component2)
 
 include(CMakePackageConfigHelpers)
 
-set(export_name "ProjectA_${PROJECT_NAME}")
-set(version 1.1.1)
+set(ExportName ProjectA_${PROJECT_NAME})
+set(Version 1.1.1)
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(spdlog REQUIRED CONFIG)
@@ -37,36 +37,36 @@ target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
 #########################################################################################
 
 install(TARGETS ${PROJECT_NAME}
-        EXPORT ${export_name}Targets
+        EXPORT ${ExportName}Targets
         ARCHIVE DESTINATION lib/$<CONFIG>
         LIBRARY DESTINATION lib/$<CONFIG>
         RUNTIME DESTINATION bin/$<CONFIG>
         FILE_SET HEADERS DESTINATION include/ProjectA/Component2
-        COMPONENT ${export_name}
+        COMPONENT ${ExportName}
 )
 
-install(EXPORT ${export_name}Targets
-        FILE ${export_name}Targets.cmake
-        DESTINATION share/${export_name}
+install(EXPORT ${ExportName}Targets
+        FILE ${ExportName}Targets.cmake
+        DESTINATION share/${ExportName}
         NAMESPACE ProjectA::
-        COMPONENT ${export_name}
+        COMPONENT ${ExportName}
 )
 
 # generate the version file for the config file
-write_basic_package_version_file(
-        "${CMAKE_CURRENT_BINARY_DIR}/${export_name}ConfigVersion.cmake"
-        VERSION "${version}"
+write_basic_package_Version_file(
+        "${CMAKE_CURRENT_BINARY_DIR}/${ExportName}ConfigVersion.cmake"
+        VERSION "${Version}"
         COMPATIBILITY AnyNewerVersion
 )
 
 configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-        "${CMAKE_CURRENT_BINARY_DIR}/${export_name}Config.cmake"
-        INSTALL_DESTINATION share/cmake/${export_name}
+        "${CMAKE_CURRENT_BINARY_DIR}/${ExportName}Config.cmake"
+        INSTALL_DESTINATION share/cmake/${ExportName}
 )
 
 install(FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/${export_name}Config.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/${export_name}ConfigVersion.cmake"
-        DESTINATION share/${export_name}
-        COMPONENT ${export_name}
+        "${CMAKE_CURRENT_BINARY_DIR}/${ExportName}Config.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/${ExportName}ConfigVersion.cmake"
+        DESTINATION share/${ExportName}
+        COMPONENT ${ExportName}
 )
