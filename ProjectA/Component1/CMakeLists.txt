@@ -1,4 +1,5 @@
-project(Component1)
+getPatchVersion(PatchVersion)
+project(Component1 VERSION 1.0.${PatchVersion})
 
 set(CMAKE_CXX_STANDARD 20)
 

@@ -1,9 +1,7 @@
-project(Component3)
-
-include(CMakePackageConfigHelpers)
+getPatchVersion(PatchVersion)
+project(Component3 VERSION 1.0.${PatchVersion})
 
 set(ExportName ProjectA_${PROJECT_NAME})
-set(Version 1.2.0)
 set(CMAKE_CXX_STANDARD 20)
 
 set(HEADERS
@@ -47,7 +45,7 @@ install(EXPORT ${ExportName}Targets
 # generate the version file for the config file
 write_basic_package_Version_file(
         "${CMAKE_CURRENT_BINARY_DIR}/${ExportName}ConfigVersion.cmake"
-        VERSION "${Version}"
+        VERSION "${PROJECT_VERSION}"
         COMPATIBILITY AnyNewerVersion
 )
 

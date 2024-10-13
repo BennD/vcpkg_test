@@ -1,36 +1,14 @@
 cmake_minimum_required(VERSION 3.28)
 
-project(ProjectA)
-
+find_package(CMakeHelperModules 1.0 REQUIRED)
+include(VersioningHelpers)
 include(CMakePackageConfigHelpers)
 
-set(ExportName ${PROJECT_NAME})
-set(Version 1.1.0)
+getPatchVersion(PatchVersion)
+project(ProjectA VERSION 1.0.${PatchVersion})
+
 set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(Component3)
 add_subdirectory(Component2)
 add_subdirectory(Component1)
-
-#########################################################################################
-## CMake install configuration
-#########################################################################################
-
-# generate the version file for the config file
-write_basic_package_Version_file(
-        "${CMAKE_CURRENT_BINARY_DIR}/${ExportName}ConfigVersion.cmake"
-        VERSION "${Version}"
-        COMPATIBILITY AnyNewerVersion
-)
-
-configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-        "${CMAKE_CURRENT_BINARY_DIR}/${ExportName}Config.cmake"
-        INSTALL_DESTINATION share/cmake/${ExportName}
-)
-
-install(FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/${ExportName}Config.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/${ExportName}ConfigVersion.cmake"
-        DESTINATION share/${ExportName}
-        COMPONENT ${ExportName}
-)
