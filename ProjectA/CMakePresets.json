@@ -1,0 +1,36 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "hidden": true,
+      "name": "default",
+      "binaryDir": "${sourceDir}/cmake-build",
+      "cacheVariables": {
+        "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": {
+          "type": "FILEPATH",
+          "value": "${sourceDir}/conan_provider.cmake"
+        }
+      }
+    },
+    {
+      "name": "linux",
+      "inherits": "default",
+      "displayName": "Linux build",
+      "description": "Default build using Ninja Multi-Config generator",
+      "generator": "Ninja Multi-Config"
+    },
+    {
+      "name": "windows",
+      "inherits": "default",
+      "displayName": "Windows configuration",
+      "description": "This build is only available on Windows",
+      "generator": "Visual Studio 16 2019",
+      "architecture": "Win64",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    }
+  ]
+}
