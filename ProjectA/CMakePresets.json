@@ -5,6 +5,7 @@
       "hidden": true,
       "name": "default",
       "binaryDir": "${sourceDir}/cmake-build",
+      "toolchainFile": "${sourceDir}/cmake-build/conan/conan_toolchain.cmake",
       "cacheVariables": {
         "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": {
           "type": "FILEPATH",
