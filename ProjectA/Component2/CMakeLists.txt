@@ -38,14 +38,12 @@ install(TARGETS ${PROJECT_NAME}
         LIBRARY DESTINATION lib/$<CONFIG>
         RUNTIME DESTINATION bin/$<CONFIG>
         FILE_SET HEADERS DESTINATION include/ProjectA/Component2
-        COMPONENT ${ExportName}
 )
 
 install(EXPORT ${ExportName}Targets
         FILE ${ExportName}Targets.cmake
         DESTINATION share/${ExportName}
         NAMESPACE ProjectA::
-        COMPONENT ${ExportName}
 )
 
 # generate the version file for the config file
@@ -64,5 +62,4 @@ install(FILES
         "${CMAKE_CURRENT_BINARY_DIR}/${ExportName}Config.cmake"
         "${CMAKE_CURRENT_BINARY_DIR}/${ExportName}ConfigVersion.cmake"
         DESTINATION share/${ExportName}
-        COMPONENT ${ExportName}
 )
