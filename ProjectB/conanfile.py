@@ -2,7 +2,7 @@ from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain
 
 
-class ProjectA(ConanFile):
+class ProjectB(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeDeps"
     options = {"shared": [True, False]}
@@ -10,6 +10,7 @@ class ProjectA(ConanFile):
 
     def requirements(self):
         self.requires("spdlog/1.14.1")
+        # TODO replace this with ProjectA later
 
     def generate(self):
         tc = CMakeToolchain(self)
