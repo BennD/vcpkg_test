@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling", "conan"]
+build-backend = "hatchling.build"
+
+[project]
+name = "aconan"
+version = "0.0.1"
+authors = [
+    { name = "Benno Doerr", email = "bencayd@gmail.com" },
+]
+description = "A helper for the `conan` package"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/BennD/vcpkg_test/tree/main/PythonPackages"
+Issues = "https://github.com/BennD/vcpkg_test/issues"
