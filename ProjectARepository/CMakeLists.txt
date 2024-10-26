@@ -4,10 +4,15 @@ include(CMakePackageConfigHelpers)
 
 project(ProjectA VERSION 1.0.0)
 
-set(CMAKE_CXX_STANDARD 20)
+if(NOT CMAKE_TOOLCHAIN_FILE)
+	# No toolchain used, set global C++ settings
+	set(CMAKE_CXX_STANDARD 20)
+endif()
 
-add_subdirectory(LayerSupport)
-add_subdirectory(LayerApps)
+find_package(spdlog REQUIRED CONFIG)
+
+add_subdirectory(ProjectA/LayerSupport)
+add_subdirectory(ProjectA/LayerApps)
 
 #########################################################################################
 ## CMake install configuration
@@ -20,7 +25,7 @@ write_basic_package_Version_file(
         COMPATIBILITY AnyNewerVersion
 )
 
-configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+configure_package_config_file(Config.cmake.in
         "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
         INSTALL_DESTINATION share/${PROJECT_NAME}
 )

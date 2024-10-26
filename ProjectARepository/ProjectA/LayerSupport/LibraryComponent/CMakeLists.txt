@@ -15,7 +15,7 @@ target_sources(${PROJECT_NAME} PUBLIC FILE_SET HEADERS FILES ${HEADERS})
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCES})
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/..>
+        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
         $<INSTALL_INTERFACE:include>
 )
 

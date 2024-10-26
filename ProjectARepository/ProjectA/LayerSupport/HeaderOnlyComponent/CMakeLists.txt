@@ -1,7 +1,5 @@
 project(HeaderOnlyComponent)
 
-find_package(spdlog REQUIRED CONFIG)
-
 set(HEADERS
         LogSingleton.h
         LogWrapper.h
@@ -13,7 +11,7 @@ add_library(ProjectA::LayerA::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_sources(${PROJECT_NAME} INTERFACE FILE_SET HEADERS FILES ${HEADERS})
 
 target_include_directories(${PROJECT_NAME} INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/..>
+        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
         $<INSTALL_INTERFACE:include>
 )
 
