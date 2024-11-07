@@ -1,11 +1,10 @@
+from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
-from aconan.wrapper import AConanFile
 
 
-class ProjectA(AConanFile):
-    name = "projecta"
-    branch = "trunk"
-    conanfile = __file__
+class ProjectA(ConanFile):
+    name = "projecta-trunk"
+    version = "1.0.0"
 
     # Metadata
     license = "MIT"
