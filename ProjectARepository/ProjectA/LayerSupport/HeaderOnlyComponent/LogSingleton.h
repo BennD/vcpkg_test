@@ -12,7 +12,11 @@ class LogSingleton {
     }
 
     static LogSingleton &instance() {
-        return m_instance;
+        std::lock_guard guard(m_mutex);
+        if (!m_instance) {
+            m_instance = new LogSingleton();
+        }
+        return *m_instance;
     }
 
 public:
@@ -21,13 +25,13 @@ public:
 
         logger->sinks().emplace_back(instance().m_stdout_sink);
 
-        spdlog::register_logger(logger);
+        register_logger(logger);
 
         return LogWrapper(logger);
     }
 
 private:
-    static LogSingleton m_instance;
-
     std::shared_ptr<spdlog::sinks::stdout_color_sink_mt> m_stdout_sink;
+    static inline LogSingleton *m_instance = nullptr;
+    static inline std::mutex m_mutex{};
 };

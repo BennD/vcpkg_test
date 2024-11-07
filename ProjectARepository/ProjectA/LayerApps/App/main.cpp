@@ -1,11 +1,7 @@
-#include <mutex>
-#include <memory>
-#include <utility>
+#include <ProjectA/LayerSupport/HeaderOnlyComponent/LogSingleton.h>
+#include <ProjectA/LayerSupport/LibraryComponent/Library.h>
 
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
-
-#include <ProjectA/Component2/LogSingleton.h>
+#include <thread>
 
 int main() {
     std::thread t1([] {
@@ -35,8 +31,17 @@ int main() {
             a--;
         }
     });
+    std::thread t4([] {
+        int a = 100;
+        while (a >= 0) {
+            simpleLog("Simple log using LibraryComponent");
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            a--;
+        }
+    });
 
     t1.join();
     t2.join();
     t3.join();
+    t4.join();
 }
