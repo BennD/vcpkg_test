@@ -3,7 +3,7 @@ from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
 
 
 class ProjectA(ConanFile):
-    name = "projectb"
+    name = "projectb-trunk"
     version = "1.0.0"
 
     # Metadata
@@ -19,10 +19,10 @@ class ProjectA(ConanFile):
     options = {"shared": [True, False]}
     default_options = {"shared": False}
 
-    exports_sources = ["CMakeLists.txt", "Config.cmake.in", "ProjectB/*"]
+    exports_sources = ["CMakeLists.txt", "ProjectB/*"]
 
     def requirements(self):
-        self.requires("projecta/1.0.0")
+        self.requires("projecta-trunk/1.0.0")
 
     def generate(self):
         tc = CMakeToolchain(self)
